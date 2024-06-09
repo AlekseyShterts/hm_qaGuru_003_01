@@ -25,9 +25,6 @@ public class StudentRegistrationFormTest {
         $("#userEmail").setValue("SheepDolly@example.com");
         $("#genterWrapper").$(byText("Other")).click();
         $("#userNumber").setValue("79995550199");
-        //input dateOfBirth by string
-        //$("#dateOfBirthInput").setValue("05 Feb 1996");
-        //input dateOfBirth by datepick form
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").selectOption(String.valueOf("February"));
         $(".react-datepicker__year-select").selectOption(String.valueOf("1996"));
