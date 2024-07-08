@@ -52,6 +52,7 @@ public class StudentRegistrationFormTest {
                 Condition.text("Picture picture.jpg"),
                 Condition.text("Address Edinburgh"),
                 Condition.text("State and City Uttar Pradesh Agra")
+                Condition.text("State and City Uttar Pradesh Agra")
         );
     }
 }
