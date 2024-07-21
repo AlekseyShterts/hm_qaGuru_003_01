@@ -1,29 +1,24 @@
 package pages.components;
 
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.ElementsCollection;
 
-import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
+import java.util.List;
+
+import static com.codeborne.selenide.CollectionCondition.texts;
+import static com.codeborne.selenide.Selenide.$$;
 
 public class SubmitFormModal {
-    private final SelenideElement submitFormModalHeader = $("#example-modal-sizes-title-lg"),
-            submitFormModalTable = $(".table-responsive"),
-            submitFormModal = $(".modal-dialog");
+    private final ElementsCollection submitFormModaleData = $$("tbody tr td:last-child");
 
-    public SubmitFormModal checkSubmitModalHeader(String value) {
-        submitFormModalHeader.shouldHave(exactText(value));
-        return this;
+    public void checkFormIsFilledOutCorrectly(List<String> expectedData) {
+        submitFormModaleData.should(texts(expectedData));
     }
 
-    public SubmitFormModal checkSubmitFormModalTable(String key, String value) {
-        submitFormModalTable.$(byText(key)).sibling(0).shouldHave(text(value));
-        return this;
-    }
-
-    public SubmitFormModal submitFormModalNotExist() {
-        submitFormModal.shouldNotBe(exist);
-        return this;
+    public boolean isFormFilledOutCorrectly(List<String> expectedData) {
+        List<String> data = submitFormModaleData
+                .texts().stream()
+                .filter(e -> e.length() > 2).toList();
+        return expectedData.equals(data);
     }
 
 }

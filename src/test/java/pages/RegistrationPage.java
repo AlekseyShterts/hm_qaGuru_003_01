@@ -4,6 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 import pages.components.CalendarComponent;
 
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
@@ -14,14 +15,14 @@ public class RegistrationPage {
     private SelenideElement userEmailInput = $("#userEmail");
     private SelenideElement genderWrapper = $("#genterWrapper");
     private SelenideElement userNumberInput = $("#userNumber");
-    private SelenideElement calendarInput = $("#dateOfBirthInput");
     private SelenideElement selectSubjects = $("#subjectsInput");
     private SelenideElement selectHobbies = $("#hobbiesWrapper");
     private SelenideElement uploadPicture = $("#uploadPicture");
     private SelenideElement currentAdressInput = $("#currentAddress");
-    private SelenideElement stateSelect =  $("#state");
+    private SelenideElement stateSelect = $("#state");
     private SelenideElement citySelect = $("#city");
     private SelenideElement clickSubmitButton = $("#submit");
+    private SelenideElement submitFormModal = $(".modal-content");
 
     CalendarComponent calendarComponent = new CalendarComponent();
 
@@ -67,19 +68,12 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage setDateOfBirth(String day, String month, String year) {
-        calendarInput.click();
-        calendarComponent.setDate(month, year, day);
-
-        return this;
-    }
-
-    public RegistrationPage selectSubjects (String value) {
+    public RegistrationPage selectSubjects(String value) {
         selectSubjects.setValue(value).pressEnter();
         return this;
     }
 
-    public RegistrationPage selectHobbies (String value) {
+    public RegistrationPage selectHobbies(String value) {
         selectHobbies.$(byText(value)).click();
         return this;
     }
@@ -108,6 +102,10 @@ public class RegistrationPage {
 
     public void clickSubmitButton() {
         clickSubmitButton.scrollIntoView(true).click();
+    }
+
+    public void checkVisibleSubmitFormModal() {
+        submitFormModal.shouldNotBe(visible);
     }
 
 }
