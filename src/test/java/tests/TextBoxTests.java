@@ -1,6 +1,6 @@
 package tests;
 
-import pages.TextBoxResult;
+import pages.TextBoxResultPage;
 import org.junit.jupiter.api.Test;
 
 public class TextBoxTests extends TestBase{
@@ -9,7 +9,7 @@ public class TextBoxTests extends TestBase{
     void fillFormTest() {
 
         pages.TextBoxPage textBoxPage = new pages.TextBoxPage();
-        TextBoxResult checkTextBox = new TextBoxResult();
+        TextBoxResultPage checkTextBox = new TextBoxResultPage();
 
         textBoxPage.openPage();
         textBoxPage

@@ -9,8 +9,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 
 public class RegistrationPage {
-    private SelenideElement
-            firstNameInput = $("#firstName");
+    private SelenideElement firstNameInput = $("#firstName");
     private SelenideElement lastNameInput = $("#lastName");
     private SelenideElement userEmailInput = $("#userEmail");
     private SelenideElement genderWrapper = $("#genterWrapper");
@@ -29,9 +28,12 @@ public class RegistrationPage {
     public RegistrationPage openPage() {
         open("/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
+        return this;
+    }
+
+    public RegistrationPage removeBannerAndFooter() {
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
-
         return this;
     }
 
@@ -93,25 +95,19 @@ public class RegistrationPage {
     }
 
     public RegistrationPage stateSelect(String value) {
-        $("#state").click();
+        stateSelect.click();
         stateSelect.$(byText(value)).click();
         return this;
     }
 
     public RegistrationPage citySelect(String value) {
-        $("#city").click();
+        citySelect.click();
         citySelect.$(byText(value)).click();
         return this;
     }
 
     public void clickSubmitButton() {
         clickSubmitButton.scrollIntoView(true).click();
-    }
-
-    public RegistrationPage checkResult(String key, String value) {
-        $(".table-responsive").$(byText(key)).parent()
-                .shouldHave(text(value));
-        return this;
     }
 
 }

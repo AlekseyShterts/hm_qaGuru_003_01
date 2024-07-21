@@ -5,7 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
-public class TextBoxResult {
+public class TextBoxResultPage {
 
     private SelenideElement inputName = $("#output #name"),
             inputEmail = $("#output #email"),
@@ -13,22 +13,22 @@ public class TextBoxResult {
             permanentAddress = $("#output #permanentAddress");
 
 
-    public TextBoxResult checkName(String value) {
+    public TextBoxResultPage checkName(String value) {
         inputName.shouldHave(text(value));
         return this;
     }
 
-    public TextBoxResult checkEmail(String value) {
+    public TextBoxResultPage checkEmail(String value) {
         inputEmail.shouldHave(text(value));
         return this;
     }
 
-    public TextBoxResult checkCurrentAddress(String value) {
+    public TextBoxResultPage checkCurrentAddress(String value) {
         currentAddress.shouldHave(text(value));
         return this;
     }
 
-    public TextBoxResult checkPermanentAddress(String value) {
+    public TextBoxResultPage checkPermanentAddress(String value) {
         permanentAddress.shouldHave(text(value));
         return this;
     }
