@@ -1,6 +1,6 @@
 package tests;
 
-import pages.TextBoxResultPage;
+import pages.components.TextBoxResultModal;
 import org.junit.jupiter.api.Test;
 
 public class TextBoxTests extends TestBase{
@@ -9,10 +9,11 @@ public class TextBoxTests extends TestBase{
     void fillFormTest() {
 
         pages.TextBoxPage textBoxPage = new pages.TextBoxPage();
-        TextBoxResultPage checkTextBox = new TextBoxResultPage();
+        TextBoxResultModal checkTextBox = new TextBoxResultModal();
 
         textBoxPage.openPage();
         textBoxPage
+                .removeBannerAndFooter()
                 .setUserName("Dolly")
                 .setUserEmail("SheepDolly@example.com")
                 .setCurrentAddress("Edinburgh")
