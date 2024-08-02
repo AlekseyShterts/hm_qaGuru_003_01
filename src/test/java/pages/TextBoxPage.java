@@ -3,8 +3,8 @@ package pages;
 import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.executeJavaScript;
 
 public class TextBoxPage {
 
@@ -18,6 +18,12 @@ public class TextBoxPage {
     public void openPage() {
         open("/text-box");
         $(".text-center").shouldHave(text("Text Box"));
+    }
+
+    public TextBoxPage removeBannerAndFooter() {
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
+        return this;
     }
 
     public TextBoxPage setUserName(String value) {
