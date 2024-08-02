@@ -1,5 +1,7 @@
 package tests;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 import pages.components.CalendarComponent;
@@ -9,6 +11,9 @@ import java.util.List;
 
 import static utils.TestData.*;
 
+
+@Tag("smoke")
+@DisplayName("Registration form tests")
 public class StudentRegistrationFormTest extends TestBase {
 
     RegistrationPage registrationPage = new RegistrationPage();
@@ -16,6 +21,8 @@ public class StudentRegistrationFormTest extends TestBase {
     CalendarComponent calendarComponent = new CalendarComponent();
 
     @Test
+    @Tag("smoke")
+    @DisplayName("Check the registration form with all fields filled in")
     void fullFillFormsRegistrationTest() {
 
         String firstName = getFirstName();
@@ -65,6 +72,8 @@ public class StudentRegistrationFormTest extends TestBase {
     }
 
     @Test
+    @Tag("regression")
+    @DisplayName("Check the registration form for only required fields")
     void fillOnlyRequiredFormRegistrationTest() {
         String firstName = getFirstName();
         String lastName = getLastName();
@@ -89,6 +98,8 @@ public class StudentRegistrationFormTest extends TestBase {
     }
 
     @Test
+    @Tag("negative")
+    @DisplayName("Check the Registration Form without the Last Name")
     void fillNotAllRequiredFormRegistrationTest() {
         String firstName = getFirstName();
         String gender = getGender();
