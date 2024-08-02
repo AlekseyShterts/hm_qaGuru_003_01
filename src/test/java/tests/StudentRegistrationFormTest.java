@@ -6,10 +6,9 @@ import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 import pages.components.CalendarComponent;
 import pages.components.SubmitFormModal;
+import utils.TestData;
 
 import java.util.List;
-
-import static utils.TestData.*;
 
 
 @Tag("smoke")
@@ -19,53 +18,40 @@ public class StudentRegistrationFormTest extends TestBase {
     RegistrationPage registrationPage = new RegistrationPage();
     SubmitFormModal submitFormModal = new SubmitFormModal();
     CalendarComponent calendarComponent = new CalendarComponent();
+    TestData testData = new TestData();
 
     @Test
     @Tag("smoke")
     @DisplayName("Check the registration form with all fields filled in")
     void fullFillFormsRegistrationTest() {
 
-        String firstName = getFirstName();
-        String lastName = getLastName();
-        String email = getEmail();
-        String gender = getGender();
-        String mobile = getMobile();
-        String dateOfBirth = getDateOfBirth();
-        String subject = getSubject();
-        String hobby = getHobby();
-        String fileName = getFile();
-        String address = getAddress();
-        String state = getState();
-        String city = getCity(state);
-
-
         List<String> usedData = List.of(
-                firstName + " " + lastName,
-                email,
-                gender,
-                mobile,
-                dateOfBirth,
-                subject,
-                hobby,
-                fileName,
-                address,
-                state + " " + city
+                testData.firstName + " " + testData.lastName,
+                testData.email,
+                testData.gender,
+                testData.mobilePhone,
+                testData.dateOfBirth,
+                testData.subject,
+                testData.hobbies,
+                testData.uploadFile,
+                testData.address,
+                testData.state + " " + testData.city
         );
 
         registrationPage.openPage()
                 .removeBannerAndFooter()
-                .setFirstName(firstName)
-                .setLastName(lastName)
-                .setEmail(email)
-                .setGender(gender)
-                .setUserNumber(mobile);
-        calendarComponent.setDateOfBirthByFake(dateOfBirth);
-        registrationPage.selectSubjects(subject)
-                .selectHobbies(hobby)
-                .uploadPicture(fileName)
-                .currentAdressInput(address)
-                .stateSelect(state)
-                .citySelect(city)
+                .setFirstName(testData.firstName)
+                .setLastName(testData.lastName)
+                .setEmail(testData.email)
+                .setGender(testData.gender)
+                .setUserNumber(testData.mobilePhone);
+        calendarComponent.setDateOfBirthByFake(testData.dateOfBirth);
+        registrationPage.selectSubjects(testData.subject)
+                .selectHobbies(testData.hobbies)
+                .uploadPicture(testData.uploadFile)
+                .currentAdressInput(testData.address)
+                .stateSelect(testData.state)
+                .citySelect(testData.city)
                 .clickSubmitButton();
         submitFormModal.checkFormIsFilledOutCorrectly(usedData);
 
@@ -75,23 +61,18 @@ public class StudentRegistrationFormTest extends TestBase {
     @Tag("regression")
     @DisplayName("Check the registration form for only required fields")
     void fillOnlyRequiredFormRegistrationTest() {
-        String firstName = getFirstName();
-        String lastName = getLastName();
-        String gender = getGender();
-        String mobile = getMobile();
-
         List<String> usedData = List.of(
-                firstName + " " + lastName,
-                gender,
-                mobile
+                testData.firstName + " " + testData.lastName,
+                testData.gender,
+                testData.mobilePhone
         );
 
         registrationPage.openPage()
                 .removeBannerAndFooter()
-                .setFirstName(firstName)
-                .setLastName(lastName)
-                .setGender(gender)
-                .setUserNumber(mobile)
+                .setFirstName(testData.firstName)
+                .setLastName(testData.lastName)
+                .setGender(testData.gender)
+                .setUserNumber(testData.mobilePhone)
                 .clickSubmitButton();
         submitFormModal.isFormFilledOutCorrectly(usedData);
 
@@ -101,15 +82,12 @@ public class StudentRegistrationFormTest extends TestBase {
     @Tag("negative")
     @DisplayName("Check the Registration Form without the Last Name")
     void fillNotAllRequiredFormRegistrationTest() {
-        String firstName = getFirstName();
-        String gender = getGender();
-        String mobile = getMobile();
 
         registrationPage.openPage()
                 .removeBannerAndFooter()
-                .setFirstName(firstName)
-                .setGender(gender)
-                .setUserNumber(mobile)
+                .setFirstName(testData.firstName)
+                .setGender(testData.gender)
+                .setUserNumber(testData.mobilePhone)
                 .clickSubmitButton();
         registrationPage.checkVisibleSubmitFormModal();
     }

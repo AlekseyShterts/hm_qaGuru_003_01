@@ -9,6 +9,18 @@ import java.util.Locale;
 
 public class TestData {
     private static Faker faker = new Faker();
+    public String firstName = getFirstName(),
+            lastName = getLastName(),
+            email = getEmail(),
+            gender = getGender(),
+            mobilePhone = getMobile(),
+            dateOfBirth = getDateOfBirth(),
+            subject = getSubject(),
+            hobbies = getHobby(),
+            uploadFile = getFile(),
+            address = getAddress(),
+            state = getState(),
+            city = getCity(state);
 
     public static String getFirstName() {
         return faker.name().firstName();
