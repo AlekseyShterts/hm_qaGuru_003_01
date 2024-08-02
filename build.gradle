@@ -64,6 +64,7 @@ tasks.withType(Test) {
 
 task smoke_tests(type: Test) {
     useJUnitPlatform {
-        includeTags("smoke")
+        includeTags("smoke");
+        excludeTags("text_box_test")
     }
 }

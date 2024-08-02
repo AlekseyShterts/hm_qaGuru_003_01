@@ -1,10 +1,12 @@
 package tests;
 
+import org.junit.jupiter.api.Tag;
 import pages.TextBoxResultPage;
 import org.junit.jupiter.api.Test;
 
 public class TextBoxTests extends TestBase{
 
+    @Tag("text_box_test")
     @Test
     void fillFormTest() {
 
