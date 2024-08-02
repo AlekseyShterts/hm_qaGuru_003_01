@@ -1,73 +1,117 @@
 package tests;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
-import pages.components.ModalWindow;
+import pages.components.CalendarComponent;
+import pages.components.SubmitFormModal;
 
+import java.util.List;
+
+import static utils.TestData.*;
+
+
+@Tag("smoke")
+@DisplayName("Registration form tests")
 public class StudentRegistrationFormTest extends TestBase {
 
     RegistrationPage registrationPage = new RegistrationPage();
-    ModalWindow modalWindow = new ModalWindow();
+    SubmitFormModal submitFormModal = new SubmitFormModal();
+    CalendarComponent calendarComponent = new CalendarComponent();
 
     @Test
+    @Tag("smoke")
+    @DisplayName("Check the registration form with all fields filled in")
     void fullFillFormsRegistrationTest() {
-        registrationPage.openPage()
-                .setFirstName("Dolly")
-                .setLastName("Sheep")
-                .setEmail("SheepDolly@example.com")
-                .setGender("Other")
-                .setUserNumber("7999555019")
-                .setDateOfBirth("5", "February", "1996")
-                .selectSubjects("Computer Science")
-                .selectHobbies("Sports")
-                .uploadPicture("picture.jpg")
-                .currentAdressInput("Edinburgh")
-                .stateSelect("Uttar Pradesh")
-                .citySelect("Agra")
-                .clickSubmitButton();
 
-        modalWindow
-                .checkModalHeader("Thanks for submitting the form")
-                .checkResultTable("Student Name", "Dolly Sheep")
-                .checkResultTable("Student Email", "SheepDolly@example.com")
-                .checkResultTable("Gender", "Other")
-                .checkResultTable("Mobile", "7999555019")
-                .checkResultTable("Date of Birth", "05 February,1996")
-                .checkResultTable("Subjects", "Computer Science")
-                .checkResultTable("Hobbies", "Sports")
-                .checkResultTable("Picture", "picture.jpg")
-                .checkResultTable("Address", "Edinburgh")
-                .checkResultTable("State and City", "Uttar Pradesh Agra");
+        String firstName = getFirstName();
+        String lastName = getLastName();
+        String email = getEmail();
+        String gender = getGender();
+        String mobile = getMobile();
+        String dateOfBirth = getDateOfBirth();
+        String subject = getSubject();
+        String hobby = getHobby();
+        String fileName = getFile();
+        String address = getAddress();
+        String state = getState();
+        String city = getCity(state);
+
+
+        List<String> usedData = List.of(
+                firstName + " " + lastName,
+                email,
+                gender,
+                mobile,
+                dateOfBirth,
+                subject,
+                hobby,
+                fileName,
+                address,
+                state + " " + city
+        );
+
+        registrationPage.openPage()
+                .removeBannerAndFooter()
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setEmail(email)
+                .setGender(gender)
+                .setUserNumber(mobile);
+        calendarComponent.setDateOfBirthByFake(dateOfBirth);
+        registrationPage.selectSubjects(subject)
+                .selectHobbies(hobby)
+                .uploadPicture(fileName)
+                .currentAdressInput(address)
+                .stateSelect(state)
+                .citySelect(city)
+                .clickSubmitButton();
+        submitFormModal.checkFormIsFilledOutCorrectly(usedData);
 
     }
 
     @Test
-    void fillOnlyRequiredFormRegistrationTest(){
+    @Tag("regression")
+    @DisplayName("Check the registration form for only required fields")
+    void fillOnlyRequiredFormRegistrationTest() {
+        String firstName = getFirstName();
+        String lastName = getLastName();
+        String gender = getGender();
+        String mobile = getMobile();
+
+        List<String> usedData = List.of(
+                firstName + " " + lastName,
+                gender,
+                mobile
+        );
+
         registrationPage.openPage()
-                .setFirstName("Dolly")
-                .setLastName("Sheep")
-                .setGender("Other")
-                .setUserNumber("79995550199")
+                .removeBannerAndFooter()
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setGender(gender)
+                .setUserNumber(mobile)
                 .clickSubmitButton();
-
-        modalWindow
-                .checkModalHeader("Thanks for submitting the form")
-                .checkResultTable("Student Name", "Dolly Sheep")
-                .checkResultTable("Gender", "Other")
-                .checkResultTable("Mobile", "7999555019");
-
+        submitFormModal.isFormFilledOutCorrectly(usedData);
 
     }
 
     @Test
-    void fillNotAllRequiredFormRegistrationTest(){
-        registrationPage.openPage()
-                .setLastName("Sheep")
-                .setGender("Other")
-                .setUserNumber("79995550199")
-                .clickSubmitButton();
+    @Tag("negative")
+    @DisplayName("Check the Registration Form without the Last Name")
+    void fillNotAllRequiredFormRegistrationTest() {
+        String firstName = getFirstName();
+        String gender = getGender();
+        String mobile = getMobile();
 
-        modalWindow.modalWindowNotExist();
+        registrationPage.openPage()
+                .removeBannerAndFooter()
+                .setFirstName(firstName)
+                .setGender(gender)
+                .setUserNumber(mobile)
+                .clickSubmitButton();
+        registrationPage.checkVisibleSubmitFormModal();
     }
 
 }
