@@ -62,11 +62,8 @@ tasks.withType(Test) {
     }
 }
 
-tasks.withType(Test) {
-    systemProperties(System.getProperties())
+task smoke_tests(type: Test) {
     useJUnitPlatform {
-        if (System.getProperty("type") != null && !System.getProperty("type").isEmpty()) {
-            includeTags System.getProperty("type")
-        }
+        includeTags("smoke")
     }
 }
