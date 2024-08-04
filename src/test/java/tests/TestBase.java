@@ -16,9 +16,11 @@ public class TestBase {
 
     @BeforeAll
     static void beforeAll() {
-        Configuration.browserSize = "1920x1080";
+        Configuration.browserSize = System.getProperty("windowSize", "1920x1080");
+        Configuration.browser = System.getProperty("browser", "chrome");
+        Configuration.browserVersion = System.getProperty("version", "122");
+        Configuration.remote = System.getProperty("remoteUrl");
         Configuration.baseUrl = "https://demoqa.com";
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
         Configuration.pageLoadStrategy = "eager";
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(

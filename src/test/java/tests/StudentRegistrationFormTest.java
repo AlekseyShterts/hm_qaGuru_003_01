@@ -10,8 +10,6 @@ import utils.TestData;
 
 import java.util.List;
 
-
-@Tag("smoke")
 @DisplayName("Registration form tests")
 public class StudentRegistrationFormTest extends TestBase {
 
