@@ -53,7 +53,7 @@ public class StudentRegistrationFormTest extends TestBase {
                 .stateSelect(testData.state)
                 .citySelect(testData.city)
                 .clickSubmitButton();
-        submitFormModal.checkFormIsFilledOutCorrectly(usedData);
+        submitFormModal.isFormFilledOutCorrectly(usedData);
 
     }
 

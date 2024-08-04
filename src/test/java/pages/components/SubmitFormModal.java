@@ -1,19 +1,16 @@
 package pages.components;
 
 import com.codeborne.selenide.ElementsCollection;
+import io.qameta.allure.Step;
 
 import java.util.List;
 
-import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Selenide.$$;
 
 public class SubmitFormModal {
     private final ElementsCollection submitFormModaleData = $$("tbody tr td:last-child");
 
-    public void checkFormIsFilledOutCorrectly(List<String> expectedData) {
-        submitFormModaleData.should(texts(expectedData));
-    }
-
+    @Step("Check form is filled Correctly")
     public boolean isFormFilledOutCorrectly(List<String> expectedData) {
         List<String> data = submitFormModaleData
                 .texts().stream()

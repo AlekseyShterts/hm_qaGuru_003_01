@@ -1,6 +1,7 @@
 package pages.components;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,6 +14,7 @@ public class CalendarComponent {
             cYear = $(".react-datepicker__year-select");
     private final SelenideElement dateOfBirthInput = $("#dateOfBirthInput");
 
+    @Step("Set Date Of Birth")
     public void setDateOfBirthByFake(String date) {
         List<String> splitDate = Arrays.asList(date.split("\\s|,"));
         dateOfBirthInput.click();
