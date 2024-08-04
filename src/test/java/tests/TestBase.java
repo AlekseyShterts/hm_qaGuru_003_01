@@ -16,10 +16,10 @@ public class TestBase {
 
     @BeforeAll
     static void beforeAll() {
+        Configuration.baseUrl = "https://demoqa.com";
         Configuration.browserSize = System.getProperty("windowSize", "1920x1080");
         Configuration.browser = System.getProperty("browser", "chrome");
-        Configuration.browserVersion = System.getProperty("version", "122");
-        Configuration.baseUrl = "https://demoqa.com";
+        Configuration.browserVersion = System.getProperty("version", "100");
         Configuration.pageLoadStrategy = "eager";
         Configuration.remote = System.getProperty("remoteUrl");
         DesiredCapabilities capabilities = new DesiredCapabilities();

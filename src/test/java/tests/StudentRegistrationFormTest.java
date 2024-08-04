@@ -23,6 +23,8 @@ public class StudentRegistrationFormTest extends TestBase {
     @DisplayName("Check the registration form with all fields filled in")
     void fullFillFormsRegistrationTest() {
 
+        registrationPage.openPage();
+
         List<String> usedData = List.of(
                 testData.firstName + " " + testData.lastName,
                 testData.email,
@@ -36,7 +38,7 @@ public class StudentRegistrationFormTest extends TestBase {
                 testData.state + " " + testData.city
         );
 
-        registrationPage.openPage()
+        registrationPage
                 .removeBannerAndFooter()
                 .setFirstName(testData.firstName)
                 .setLastName(testData.lastName)
@@ -59,13 +61,16 @@ public class StudentRegistrationFormTest extends TestBase {
     @Tag("regression")
     @DisplayName("Check the registration form for only required fields")
     void fillOnlyRequiredFormRegistrationTest() {
+
+        registrationPage.openPage();
+
         List<String> usedData = List.of(
                 testData.firstName + " " + testData.lastName,
                 testData.gender,
                 testData.mobilePhone
         );
 
-        registrationPage.openPage()
+        registrationPage
                 .removeBannerAndFooter()
                 .setFirstName(testData.firstName)
                 .setLastName(testData.lastName)
@@ -81,7 +86,9 @@ public class StudentRegistrationFormTest extends TestBase {
     @DisplayName("Check the Registration Form without the Last Name")
     void fillNotAllRequiredFormRegistrationTest() {
 
-        registrationPage.openPage()
+        registrationPage.openPage();
+
+        registrationPage
                 .removeBannerAndFooter()
                 .setFirstName(testData.firstName)
                 .setGender(testData.gender)
